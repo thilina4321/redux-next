@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import * as actionType from '../store/actions/actions'
+import {Redirect} from 'react-router-dom'
 
-class SongList extends Component {    
+class SongList extends Component {  
+    
+    
+    
+    // {this.props.token && <Redirect to="/"/>}
     render() {
-        console.log(this.props);
+        let authRedirect;
+        if(this.props.isAuthenticate){
+            console.log(this.props.isAuthenticate);
+            authRedirect = <Redirect to="/songs"/>
+        }
         return (
             <div>
+                {authRedirect}
                 {this.props.songs.map((song, i)=>{
                     return <div onClick={()=>this.props.selectSong(song)}
                     key={i}
@@ -21,10 +31,9 @@ class SongList extends Component {
 }
 
 const mapStateToProps = (state)=>{
-    console.log(state);
     return {
         songs:state.songs,
-        
+        isAuthenticate:state.auth.token !== null        
     }
 }
 

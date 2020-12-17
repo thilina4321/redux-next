@@ -1,0 +1,17 @@
+.signInform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 90vh;
+    width: 100%;
+    box-shadow: 2px 2px 5px 5px solid black;
+}
+
+.signInform > input{
+    width: 80%;
+    margin: 0 auto;
+    height: 30px;
+    margin-bottom: 20px;
+}

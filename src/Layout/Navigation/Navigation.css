@@ -1,0 +1,19 @@
+.main__navigation{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main__nav__links{
+    margin:  0 20px;
+
+}
+
+.active{
+    color: green;
+}
+
+.logout{
+    cursor: pointer;
+}
