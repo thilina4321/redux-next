@@ -1,0 +1,31 @@
+import { Button, Card, CardContent } from "@material-ui/core";
+import React from "react";
+
+const OrderMenu = (props) => {
+  return (
+    <Card>
+      <CardContent>
+        <h3 style={{ textAlign: "center" }}> Your Order</h3>
+        {props.meals.map((meal, i) => {
+          return (
+            <div key={i} className="available__item">
+              <h3 style={{ margin: 0 }}> {meal.name} </h3>
+              <h4 style={{ margin: "5px" }}> -- {meal.amount} </h4>
+            </div>
+          );
+        })}
+
+        <Button
+          onClick={props.onOpenModalHandler}
+          style={{ marginTop: "5px" }}
+          variant="contained"
+          color="primary"
+        >
+          Order
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default OrderMenu;

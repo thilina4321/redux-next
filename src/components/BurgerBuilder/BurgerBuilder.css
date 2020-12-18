@@ -1,7 +1,13 @@
+.burger__main__app{
+    display: flex;
+    flex-direction: column;
+}
+
 .burger__builder{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
 }
 .available__items{
@@ -20,7 +26,8 @@
     flex: 1;
 }
 
-/* .modal{
-    margin: 0 50px;
-} */
 
+.dialog__modal{
+    padding: 30px;
+    text-align: center;
+}

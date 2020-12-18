@@ -1,0 +1,10 @@
+.checkout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout__items{
+    padding: 30px;
+}
