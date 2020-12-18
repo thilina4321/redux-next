@@ -1,0 +1,72 @@
+.food__order{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.burger{
+    width: 30%;
+    margin: 5px auto;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.burger__top{
+    height: 40%;
+    width: 90%;
+    margin: 0 auto;
+    background: linear-gradient(#9c610de7, #452a03e7 );
+    border-radius: 50% 50% 0 0;
+    box-shadow: inset -15px 0;
+}
+
+.salad{
+    height: 15%;
+    background: linear-gradient(#1c882e, #0b661a);
+    border-radius: 100px;
+    margin: 2px auto;
+    width: 95%;
+}
+
+
+
+.burger__bottom{
+    height: 30%;
+    width: 90%;
+    margin: 0 auto;
+    background: linear-gradient(#9c610de7, #452a03e7 );
+}
+
+.pepsi{
+    height: 150px;
+    box-shadow: inset -15px 0 #1f0dbb;
+    margin: 5px auto;
+    width: 20%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: wheat;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(#257b9c, #2e1b97);
+}
+
+.chips{
+    width: 30%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.chips__items{
+    height: 10px;
+    background: linear-gradient(#dfd224, #bad80f);
+    margin: 2px auto;
+    width: 100%;
+
+}

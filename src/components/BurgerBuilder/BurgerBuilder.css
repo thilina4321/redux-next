@@ -1,0 +1,26 @@
+.burger__builder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.available__items{
+    flex: 1;
+}
+
+.available__item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.order__details{
+    text-align: center;
+    flex: 1;
+}
+
+/* .modal{
+    margin: 0 50px;
+} */
+
