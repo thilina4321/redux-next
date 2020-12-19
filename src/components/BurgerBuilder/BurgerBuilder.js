@@ -8,16 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actionType from '../../Store/actionCreators/MealsActions'
 
 const BurgerBuilder = () => {
-  // const [meals, setMeals] = useState([ 
-  //   { name: "Burger", amount: 0 },
-  //   { name: "Pepsi", amount: 0 },
-  //   { name: "Chips", amount: 0 },
-  // ]);
-
   const [open, setOpen] = useState(false);
-  const meals = useSelector(state => state.meals)
+  const meals = useSelector(state => state.meals.meals)
+  let totalPrice = useSelector(state=>state.meals.totalPrice)
   const dispatch = useDispatch()
 
+  console.log('this is meals', meals);
 
 
   let isMeals = false;
@@ -31,13 +27,15 @@ const BurgerBuilder = () => {
   const onAddMealHandler = (mealIndex) => {
     const updatedMeals = [...meals];
     updatedMeals[mealIndex].amount = updatedMeals[mealIndex].amount + 1;
-    dispatch(actionType.updateMeals(updatedMeals))
+    totalPrice += updatedMeals[mealIndex].price;
+    dispatch(actionType.updateMeals(updatedMeals, totalPrice))
     // setMeals(updatedMeals);
   };
 
   const onRemoveMealHandler = (mealIndex) => {
     const updatedMeals = [...meals];
     if (updatedMeals[mealIndex].amount > 0) {
+      totalPrice -= updatedMeals[mealIndex].price;
       updatedMeals[mealIndex].amount = updatedMeals[mealIndex].amount - 1;
       dispatch(actionType.updateMeals(updatedMeals))
     }
@@ -65,7 +63,9 @@ const BurgerBuilder = () => {
 
         {isMeals && (
           <div className="order__details">
-            <OrderMenu meals={meals} onOpenModalHandler={onOpenModalHandler} />
+            <OrderMenu
+             totalPrice={totalPrice}
+             meals={meals} onOpenModalHandler={onOpenModalHandler} />
 
             <div className="order__dialog">
               <OrderDialog

@@ -1,10 +1,18 @@
 import { Button, Dialog } from "@material-ui/core";
 import React from "react";
+import { useDispatch } from "react-redux";
 import {withRouter} from 'react-router-dom'
+import * as mealsActionType from '../../Store/actionCreators/MealsActions'
+
 
 const OrderDialog = (props) => {
 
-  console.log(props);
+  const dispatch = useDispatch()
+  const onOrderHandler = ()=>{
+    dispatch(mealsActionType.clearMeals())
+    props.history.push('/checkout')
+  }
+
 
   return (
 
@@ -22,7 +30,7 @@ const OrderDialog = (props) => {
         <h3> Do you want to continue </h3>
         <Button onClick={props.onCloseHandler}
         color="secondary"> Cancel </Button>
-        <Button onClick={()=>props.history.push('/orders')}
+        <Button onClick={onOrderHandler}
         color="primary"> Yes </Button>
       </div>
     </Dialog>

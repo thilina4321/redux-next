@@ -15,6 +15,8 @@ const OrderMenu = (props) => {
           );
         })}
 
+        <h3> Total Price : $ {props.totalPrice} </h3>
+
         <Button
           onClick={props.onOpenModalHandler}
           style={{ marginTop: "5px" }}

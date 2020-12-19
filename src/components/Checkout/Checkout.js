@@ -1,34 +1,39 @@
-import { Card } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import "./Checkout.css";
-const Checkout = () => {
-  const user = useSelector((state) => state.user);
-  const meals = useSelector((state) => state.meals);
 
-  let isMeal = false
-  meals.forEach(meal => {
-      if(meal.amount > 0 ){
-          return isMeal = true
-      }
-      return isMeal
-  });
+const Checkout = () => {
+  const user = useSelector((state) => state.user.user);
+  const orders = useSelector((state) => state.meals.meals);
+
+  let isMeal = false;
+
+  if (orders.length > 0) {
+    isMeal = true;
+  }
 
   return (
     <div className="checkout">
       {user && <h1> Hello {user.username} </h1>}
-      No checkouts yet
-      {isMeal && <Card style={{width:'90%', margin:'auto'}}>
-      <div className="checkout__items">
-      {meals.map((meal, i) => {
-          return (
-              <div key={i}>
-              <p> {meal.name} </p>
-              <p> {meal.amount} </p>
-              </div>
+      {isMeal ? (
+        <Card style={{ width: "250px", margin: "auto" }}>
+          <CardContent style={{ textAlign: "center" }}>Your Foods</CardContent>
+          <div className="checkout__items">
+            {orders.map((meal, i) => {
+              return (
+                meal.amount > 0 && (
+                  <div className="checkout__item" key={i}>
+                    <p> {meal.name} </p>
+                    <p> {meal.amount} </p>
+                  </div>
+                )
               );
             })}
-            </div>
-      </Card>}
+          </div>
+        </Card>
+      ) : (
+        <h1> No checkouts yet </h1>
+      )}
     </div>
   );
 };
