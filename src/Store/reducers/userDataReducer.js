@@ -1,27 +1,47 @@
 import * as actionType from "../actionCreators/userActions";
 
 const initialState = {
-  user:null,
-  userCart:{price:0},
-  userOrders:[],
-  
+  user: null,
+  userOrders: [],
+  currentOrder: [],
+  currentOrderPrice: 0,
 };
 
 const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case actionType.ADD__USERDATA:
       return {
         ...state,
-        user:action.user
+        user: action.user,
+      };
+
+    case actionType.CURRENT_ORDER: {
+      let updatedPrice = state.currentOrderPrice + action.itemData.price;
+      const updatedCurrentOrder = [...state.currentOrder];
+      const foodIndex = updatedCurrentOrder.findIndex(
+        (item) => item.item === action.itemData.item
+      );
+
+      if (foodIndex >= 0) {
+        updatedCurrentOrder[foodIndex].count += 1;
+      } else {
+        updatedCurrentOrder.push({ item: action.itemData.item, count: 1 });
       }
-      
-    case actionType.USER__ORDERS:return {
-      ...state,
-      userOrders : state.userOrders.concat(action.orderMeals)
+
+      return {
+        ...state,
+        currentOrderPrice: updatedPrice,
+        currentOrder: updatedCurrentOrder,
+      };
     }
 
-    default:return state
+    case actionType.USER__ORDERS:
+      return {
+        ...state,
+        userOrders: state.userOrders.concat(action.orderData)
+}
+    default:
+      return state;
   }
 };
 

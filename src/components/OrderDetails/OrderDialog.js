@@ -1,15 +1,18 @@
 import { Button, Dialog } from "@material-ui/core";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {withRouter} from 'react-router-dom'
-import * as mealsActionType from '../../Store/actionCreators/MealsActions'
-
+import * as userActionType from '../../Store/actionCreators/userActions'
 
 const OrderDialog = (props) => {
 
+  const orderData = useSelector(state => state.user.currentOrder)
+  const orderPrice = useSelector(state => state.user.currentOrderPrice)
+
   const dispatch = useDispatch()
   const onOrderHandler = ()=>{
-    dispatch(mealsActionType.clearMeals())
+    dispatch(userActionType.addToUserOrder(orderData, orderPrice))
+    dispatch(userActionType.clearCurrentOrder())
     props.history.push('/checkout')
   }
 
@@ -22,8 +25,8 @@ const OrderDialog = (props) => {
         {props.meals.map((meal, i) => {
           return (
             <div key={i} className="modal available__item">
-              <h3 style={{ margin: 0 }}> {meal.name} </h3>
-              <h4 style={{ margin: "5px" }}> -- {meal.amount} </h4>
+              <h3 style={{ margin: 0 }}> {meal.item} </h3>
+              <h4 style={{ margin: "5px" }}> -- {meal.count} </h4>
             </div>
           );
         })}

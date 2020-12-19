@@ -6,11 +6,13 @@ const Checkout = () => {
   const user = useSelector((state) => state.user.user);
   const orders = useSelector((state) => state.meals.meals);
 
+  const orderss = useSelector(state => state.user.userOrders)
+  console.log(orderss);
   let isMeal = false;
 
-  if (orders.length > 0) {
-    isMeal = true;
-  }
+  // if (orders.length > 0) {
+  //   isMeal = true;
+  // }
 
   return (
     <div className="checkout">
