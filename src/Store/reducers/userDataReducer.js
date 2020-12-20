@@ -40,6 +40,12 @@ const userDataReducer = (state = initialState, action) => {
         ...state,
         userOrders: state.userOrders.concat(action.orderData)
 }
+
+ case actionType.CLEAR_CURRENT_ORDER:return {
+   ...state,
+   currentOrder:[],
+   currentOrderPrice:0
+ }
     default:
       return state;
   }

@@ -29,13 +29,11 @@ console.log(orderData);
     const selectedMeal = meals[mealIndex]
     
     dispatch(userActionType.addToCurrentOrder(selectedMeal.name, selectedMeal.price))
-    // setMeals(updatedMeals);
   };
 
   const onRemoveMealHandler = (mealIndex) => {
     const updatedMeals = [...meals];
     if (updatedMeals[mealIndex].amount > 0) {
-      totalPrice -= updatedMeals[mealIndex].price;
       updatedMeals[mealIndex].amount = updatedMeals[mealIndex].amount - 1;
       dispatch(actionType.updateMeals(updatedMeals))
     }

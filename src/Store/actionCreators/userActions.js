@@ -14,16 +14,6 @@ export const userData = (user)=>{
 
 
 
-export const userOrders = (orderMeals, orderPrice)=>{
-    
-    return {
-        type:USER__ORDERS,
-        orderMeals,
-        orderPrice,
-        
-    }
-}
-
 export const addToCurrentOrder = (item, price)=>{
     return {
         type:CURRENT_ORDER,
@@ -40,17 +30,19 @@ export const clearCurrentOrder = ()=>{
     }
 }
 
-export const addToUserOrder = (OrderItems, orderPrice)=>{
+export const addToUserOrder = (orderItems, orderPrice)=>{
     
+    console.log(orderItems);
 
-    const orderData = OrderItems.map(order=>{
-        return {[order.item]:order.count}
-    })
+    let orderData = orderItems.reduce((result, item)=> {
+        result[item.item] = item.count
+        return result
+      }, {})
 
-    orderData.push({'price':orderPrice})
+      orderData = {...orderData, price:orderPrice}
 
-    console.log(orderData);
-    
+
+
     return {
         type:USER__ORDERS,
         orderData
