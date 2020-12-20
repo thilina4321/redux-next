@@ -17,7 +17,9 @@ const userDataReducer = (state = initialState, action) => {
 
     case actionType.CURRENT_ORDER: {
       let updatedPrice = state.currentOrderPrice + action.itemData.price;
-      const updatedCurrentOrder = [...state.currentOrder];
+      let updatedCurrentOrder = [...state.currentOrder];
+
+      
       const foodIndex = updatedCurrentOrder.findIndex(
         (item) => item.item === action.itemData.item
       );
@@ -38,7 +40,7 @@ const userDataReducer = (state = initialState, action) => {
     case actionType.USER__ORDERS:
       return {
         ...state,
-        userOrders: state.userOrders.concat(action.orderData)
+        userOrders: state.userOrders.concat(action.data)
 }
 
  case actionType.CLEAR_CURRENT_ORDER:return {

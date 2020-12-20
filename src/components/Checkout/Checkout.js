@@ -1,5 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
-import { Fragment } from "react";
+import { Card, CardContent, Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import "./Checkout.css";
 
@@ -7,44 +6,58 @@ const Checkout = () => {
   const user = useSelector((state) => state.user.user);
 
   const orders = useSelector((state) => state.user.userOrders);
-  console.log(orders);
   let isMeal = false;
-
-  orders.map((order)=>{
-    for(let i in order){
-      console.log(i, order[i]);
-    }
-  })
   
+  // console.log(orders);
 
-  if (orders.length > 0) {
-    isMeal = true;
+  const orderData = orders.map(order=>{
+    // console.log(order);
+    return Object.keys(order).map(od=>{
+      return {name:od, value:order[od]}
+    })
+    
+
+  })
+
+  console.log(orderData);
+ 
+
+  if(orders.length > 0){
+    isMeal = true
   }
 
+  
   return (
     <div className="checkout">
       {user && <h1> Hello {user.username} </h1>}
-      <CardContent style={{ textAlign: "center" }}>Your Foods</CardContent>
       
       {isMeal ? (
-        <Card style={{ width: "250px", margin: "auto" }}>
+        
           <div className="checkout__items">
-            {orders.map((order) => {
-                 return  (
-                   Object.keys(order).map((items, i)=>{
-                    <p className="checkout__item"
-                    key={i}> {items} {order[items]} </p>
-                 })
+            
+          {orderData.map((order, i)=>
+             <Card className="checkout__item"
+              key={i} style={{margin:'20px'}}>
+             <CardContent style={{ textAlign: "center" }}>Your Foods</CardContent>
 
-                 
-              )
-            })}
+             {
+              order.map((od, i)=>{
+                return <div key={i}> 
+                <p> {od.name} {od.value} </p>
+                
+             </div>
+             
+              })
+             }
+
+             </Card>
+          )}
 
             
           
 
           </div>
-        </Card>
+        
       ) : (
         <h1> No checkouts yet </h1>
       )}

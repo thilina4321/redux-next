@@ -1,16 +1,24 @@
 .checkout{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 
 .checkout__items{
     padding: 0 30px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
     
 
 
+}
+
+.MuiPaper-rounded{
+    margin: 20px;
 }
 
 .checkout__item{

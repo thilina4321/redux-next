@@ -12,13 +12,11 @@ import * as userActionType from '../../Store/actionCreators/userActions'
 const BurgerBuilder = () => {
   const [open, setOpen] = useState(false);
   const meals = useSelector(state => state.meals.meals)
-  let totalPrice = useSelector(state=>state.meals.totalPrice)
   const dispatch = useDispatch()
 
   const orderData = useSelector(state=>state.user.currentOrder)
   const orderPrice = useSelector(state=>state.user.currentOrderPrice)
 
-console.log(orderData);
   let isMeals = false;
 
   if(orderData.length > 0){
