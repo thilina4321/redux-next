@@ -37,13 +37,13 @@ const Checkout = () => {
             
           {orderData.map((order, i)=>
              <Card className="checkout__item"
-              key={i} style={{margin:'20px'}}>
+              key={i} style={{marginTop:'20px'}}>
              <CardContent style={{ textAlign: "center" }}>Your Foods</CardContent>
 
              {
               order.map((od, i)=>{
                 return <div key={i}> 
-                <p> {od.name} {od.value} </p>
+                <p className="order__data"> {od.name} {od.value} </p>
                 
              </div>
              

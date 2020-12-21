@@ -5,14 +5,31 @@
 
 .burger__builder{
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
     width: 100%;
 }
+
+@media only screen and (max-width:500px){
+    .burger__builder{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .available__items{ 
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .order__details{
+        text-align: center;
+        width: 100%;
+    }
+}
+
 .available__items{
     flex: 1;
 }
+
 
 .available__item{
     display: flex;

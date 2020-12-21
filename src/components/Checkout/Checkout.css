@@ -2,27 +2,45 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    width: 100%;
+
 }
 
 .checkout__items{
     padding: 0 30px;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin: 20px;
-    
-
+    width: 100%;
 
 }
 
-.MuiPaper-rounded{
+/* .MuiPaper-rounded{
     margin: 20px;
-}
+} */
 
 .checkout__item{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 30%;
+    margin: auto;
+
+}
+
+@media only screen and (max-width:700px){
+    .checkout__item{
+        width: 100%;
+        font-size: large;
+    }
+}
+
+
+
+.order__data{
+    margin: 2px 0;
+    padding: 0;
 }
