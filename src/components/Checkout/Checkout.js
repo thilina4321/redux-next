@@ -2,7 +2,7 @@ import { Button, Card, CardContent, Dialog } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import {  useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import db, { auth } from "../../auth/firebase";
+import db from "../../auth/firebase";
 import "./Checkout.css";
 
 const Checkout = (props) => {
@@ -15,11 +15,10 @@ const Checkout = (props) => {
   if (dbOrders.length > 0) {
     isMeal = true;
   }
-  const [id, setId] = useState();
-
+  const id = useSelector(state=>state.user.user)
 
   useEffect(() => {
-    console.log(props);
+    
     if (id) {
       db.collection("userData").onSnapshot((data) => {
         setdbOrders(
@@ -44,16 +43,17 @@ const Checkout = (props) => {
 
 
   const onPaymentHandle = () => {
-    if (user.address) {
-      setOpen(true);
-    } else {
-      props.history.push("./orders");
-    }
+    setOpen(true)
+    // if (user.address) {
+    //   setOpen(true);
+    // } else {
+    //   props.history.push("./orders");
+    // }
   };
 
   return (
     <div className="checkout">
-      {user && <Redirect to="/checkout" />}
+      {user ? <Redirect to="/checkout" /> : <Redirect to="/" />}
 
       {isMeal ? (
         <div className="checkout__items">

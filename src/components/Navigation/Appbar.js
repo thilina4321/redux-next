@@ -8,18 +8,22 @@ import Order from "../Order/Order";
 import "./Appbar.css";
 import { auth } from "../../auth/firebase";
 import Logout from "../../auth/Logout";
+import * as userActionType from '../../Store/actionCreators/userActions'
+import { useDispatch, useSelector } from "react-redux";
 
 const Appbar = () => {
   const [userId, setUserId] = useState();
+  const user = useSelector(state => state.user.user)
+  const userDispatch = useDispatch()
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
+        userDispatch(userActionType.userData(currentUser.uid))
         setUserId(currentUser.uid);
       }
     });
-  }, []);
-  console.log(userId);
+  });
 
   return (
     <div>
@@ -28,22 +32,16 @@ const Appbar = () => {
           <NavLink
             className="toolbar"
             style={{ flex: 1 }}
-            to={{
-              pathname: "/",
-              search: "?userId=" + userId,
-            }}
+            to="/"
           >
             Food Shop
           </NavLink>
 
-          {userId ? (
+          {user ? (
             <div>
               <NavLink
                 className="toolbar"
-                to={{
-                  pathname: "/checkout",
-                  search: "?userId=" + userId,
-                }}
+                to={"/checkout/" }
               >
                 Checkout
               </NavLink>

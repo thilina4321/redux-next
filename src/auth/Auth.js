@@ -55,10 +55,10 @@ const Auth = (props) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         userDispatch(userActionType.userData({ email }));
-        if(props.history.action === 'POP'){
-          props.history.push('/')
-        }else{
+        if(props.history.action === 'PUSH'){
           props.history.goBack()
+        }else{
+          props.history.push('/')
         }
       })
       .catch((e) => {

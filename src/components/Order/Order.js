@@ -33,12 +33,11 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 const OrderForm = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  console.log(user);
 
   const onSubmit = (formData) => {
-    db.collection('userData').add(formData).then((data)=>{
-      dispatch(actionType.userData({id:data.id, ...formData}));
+      dispatch(actionType.userData({id:user, ...formData}));
       props.history.push("/checkout");
-    })
   };
 
   const { handleSubmit, submitting } = props;

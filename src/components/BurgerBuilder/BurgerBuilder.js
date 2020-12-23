@@ -1,5 +1,5 @@
 import "./BurgerBuilder.css";
-import {  useReducer, useState } from "react";
+import {   useReducer, useState } from "react";
 import AvailableItem from "../AvailableItem/AvailableItem";
 import OrderMenu from "../OrderDetails/OrderMenu";
 import OrderDialog from "../OrderDetails/OrderDialog";
@@ -15,7 +15,6 @@ const BurgerBuilder = (props) => {
   const [open, setOpen] = useState(false);
   const [checkUserDialog, setCheckUserDialog] = useState(false);
   const meals = useSelector((state) => state.meals.meals);
-  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [currentOrder, curOrderDispatch] = useReducer(currentOrderReducer, {
     items: [],
@@ -29,6 +28,10 @@ const BurgerBuilder = (props) => {
     isMeals = true;
   }
 
+  const user = useSelector(state=>state.user.user)
+  
+ 
+
   const onAddMealHandler = (mealIndex) => {
     if (!user) {
       setOpen(false);
@@ -39,7 +42,7 @@ const BurgerBuilder = (props) => {
         type: ADD,
         name: selectedMeal.name,
         price: selectedMeal.price,
-        userId:null
+        userId:user
       });
     }
   };
@@ -61,18 +64,13 @@ const BurgerBuilder = (props) => {
     setOpen(false);
   };
 
-  const onOrderHandler = () => {
-    db.collection("userData")
+  const onOrderHandler = async() => {
+    await db.collection("userData")
       .add(currentOrder)
-      .then(() => {
-        dispatch(userActionType.addToUserOrder(currentOrder ));
-        curOrderDispatch({ trpe: CLEAR });
-        props.history.push('/checkout')
-        
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      
+      dispatch(userActionType.addToUserOrder(currentOrder ));
+      curOrderDispatch({ trpe: CLEAR });
+      props.history.push('/checkout/')
   };
 
   return (
