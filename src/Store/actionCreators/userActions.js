@@ -5,10 +5,10 @@ export const ADD_TO_CURRENT_ORDER = "CURRENT_ORDER";
 export const REMOVE_FROM_CURRENT_ORDER = 'REMOVE_FROM_CURRENT_ORDER'
 export const CLEAR_CURRENT_ORDER = "CLEAR_CURRENT_ORDER";
 
-export const userData = (user) => {
+export const userData = (data) => {
   return {
     type: ADD__USERDATA,
-    user: user,
+    user: data,
   };
 };
 

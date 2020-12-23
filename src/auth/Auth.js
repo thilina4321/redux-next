@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import * as userActionType from "../Store/actionCreators/userActions";
 import { auth } from "../auth/firebase";
@@ -30,9 +30,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 const Auth = (props) => {
   const { handleSubmit, submitting } = props;
   const userDispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
   const [page, setPage] = useState('LOGIN')
-  console.log(user);
 
   const onSubmit = (formData) => {
     const email = formData.email;
@@ -41,7 +39,13 @@ const Auth = (props) => {
         auth
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        userDispatch(userActionType.userData({ email, password }));
+
+        userDispatch(userActionType.userData({ email }));
+        if(props.history.action === 'POP'){
+          props.history.push('/')
+        }else{
+          props.history.goBack()
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -50,7 +54,12 @@ const Auth = (props) => {
         auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        userDispatch(userActionType.userData({ email, password }));
+        userDispatch(userActionType.userData({ email }));
+        if(props.history.action === 'POP'){
+          props.history.push('/')
+        }else{
+          props.history.goBack()
+        }
       })
       .catch((e) => {
         console.log(e);

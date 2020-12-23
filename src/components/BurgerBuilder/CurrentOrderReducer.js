@@ -28,7 +28,8 @@ export const currentOrderReducer = (orderData, action) => {
       }
       return {
         items:updatedOrder,
-        price:updatedPrice
+        price:updatedPrice,
+        userId:action.userId
       }
 }
 

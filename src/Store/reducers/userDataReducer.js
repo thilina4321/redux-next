@@ -3,8 +3,6 @@ import * as actionType from "../actionCreators/userActions";
 const initialState = {
   user: null,
   userOrders: [],
-  currentOrder: [],
-  currentOrderPrice: 0,
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -12,7 +10,7 @@ const userDataReducer = (state = initialState, action) => {
     case actionType.ADD__USERDATA:
       return {
         ...state,
-        user: action.user,
+        user:  action.user,
       };
 
       
