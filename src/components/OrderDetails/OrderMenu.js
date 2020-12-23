@@ -9,8 +9,8 @@ const OrderMenu = (props) => {
         {props.meals.map((meal, i) => {
           return (
             <div key={i} className="available__item">
-              <h3 style={{ margin: 0 }}> {meal.item} </h3>
-              <h4 style={{ margin: "5px" }}> -- {meal.count} </h4>
+              <h3 style={{ margin: 0 }}> {meal.name} </h3>
+              <h4 style={{ margin: "5px" }}> -- {meal.amount} </h4>
             </div>
           );
         })}

@@ -15,39 +15,14 @@ const userDataReducer = (state = initialState, action) => {
         user: action.user,
       };
 
-    case actionType.CURRENT_ORDER: {
-      let updatedPrice = state.currentOrderPrice + action.itemData.price;
-      let updatedCurrentOrder = [...state.currentOrder];
-
       
-      const foodIndex = updatedCurrentOrder.findIndex(
-        (item) => item.item === action.itemData.item
-      );
-
-      if (foodIndex >= 0) {
-        updatedCurrentOrder[foodIndex].count += 1;
-      } else {
-        updatedCurrentOrder.push({ item: action.itemData.item, count: 1 });
-      }
-
-      return {
-        ...state,
-        currentOrderPrice: updatedPrice,
-        currentOrder: updatedCurrentOrder,
-      };
-    }
-
     case actionType.USER__ORDERS:
       return {
         ...state,
-        userOrders: state.userOrders.concat(action.data)
+        userOrders: state.userOrders.concat(action.orderData)
 }
 
- case actionType.CLEAR_CURRENT_ORDER:return {
-   ...state,
-   currentOrder:[],
-   currentOrderPrice:0
- }
+ 
     default:
       return state;
   }

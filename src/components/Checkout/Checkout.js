@@ -1,27 +1,15 @@
-import { Card, CardContent, Divider } from "@material-ui/core";
+import { Button, Card, CardContent, Dialog } from "@material-ui/core";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./Checkout.css";
 
 const Checkout = () => {
   const user = useSelector((state) => state.user.user);
+  const [open, setOpen] = useState(false)
 
   const orders = useSelector((state) => state.user.userOrders);
   let isMeal = false;
-  
-  // console.log(orders);
-
-  const orderData = orders.map(order=>{
-    // console.log(order);
-    return Object.keys(order).map(od=>{
-      return {name:od, value:order[od]}
-    })
-    
-
-  })
-
-  console.log(orderData);
  
-
   if(orders.length > 0){
     isMeal = true
   }
@@ -34,25 +22,36 @@ const Checkout = () => {
       {isMeal ? (
         
           <div className="checkout__items">
-            
-          {orderData.map((order, i)=>
-             <Card className="checkout__item"
-              key={i} style={{marginTop:'20px'}}>
-             <CardContent style={{ textAlign: "center" }}>Your Foods</CardContent>
 
-             {
-              order.map((od, i)=>{
-                return <div key={i}> 
-                <p className="order__data"> {od.name} {od.value} </p>
-                
-             </div>
-             
-              })
-             }
+          {orders.map((order,i)=>
+            <Card style={{marginBottom:'10px', marginTop:'10px'}}
+             className="checkout__item"
+             key={i}>
+             <CardContent> Your Order </CardContent>
+             {order.items.map((od,i)=>{
+              return <div key={i}> 
+              <p className="order__data"> {od.name} {od.amount} </p>
+              
+           </div>
+            })}
 
-             </Card>
+            <div className="price"> Price  ${order.price} </div>
+            <Button onClick={()=>setOpen(true)}
+             variant="contained" color="primary"> Payment </Button>
+            <Dialog 
+             open={open}
+             onClose={()=>{setOpen(false)}}>
+             <h3 style={{margin:'50px', textAlign:'center'}}>
+             Payment section is under contruction.
+             Will fix it soon
+             </h3>
+             </Dialog>
+            </Card>
+
+          
           )}
 
+         
             
           
 

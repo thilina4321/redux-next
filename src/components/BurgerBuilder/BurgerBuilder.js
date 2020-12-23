@@ -1,40 +1,51 @@
 import "./BurgerBuilder.css";
-import {  useState } from "react";
+import { useReducer, useState } from "react";
 import AvailableItem from "../AvailableItem/AvailableItem";
 import OrderMenu from "../OrderDetails/OrderMenu";
 import OrderDialog from "../OrderDetails/OrderDialog";
 import Burger from "../Burger/Burger";
 import { useDispatch, useSelector } from "react-redux";
-import * as actionType from '../../Store/actionCreators/MealsActions'
-import * as userActionType from '../../Store/actionCreators/userActions'
+import * as userActionType from "../../Store/actionCreators/userActions";
+import { currentOrderReducer } from "./CurrentOrderReducer";
+import {ADD, REMOVE, CLEAR} from './CurrentOrderReducer'
 
 
-const BurgerBuilder = () => {
+const BurgerBuilder = (props) => {
   const [open, setOpen] = useState(false);
-  const meals = useSelector(state => state.meals.meals)
-  const dispatch = useDispatch()
+  const meals = useSelector((state) => state.meals.meals);
+  const user = useSelector(state => state.user.user)
+  const dispatch = useDispatch();
+  const [currentOrder, curOrderDispatch] = useReducer(currentOrderReducer, {
+    items: [],
+    price: 0,
+  });
 
-  const orderData = useSelector(state=>state.user.currentOrder)
-  const orderPrice = useSelector(state=>state.user.currentOrderPrice)
 
   let isMeals = false;
 
-  if(orderData.length > 0){
-    isMeals = true
+  if (currentOrder.items.length > 0) {
+    isMeals = true;
   }
 
   const onAddMealHandler = (mealIndex) => {
-    const selectedMeal = meals[mealIndex]
+    const selectedMeal = meals[mealIndex];
+    curOrderDispatch({
+      type: ADD,
+      name: selectedMeal.name,
+      price: selectedMeal.price,
+    });
     
-    dispatch(userActionType.addToCurrentOrder(selectedMeal.name, selectedMeal.price))
   };
 
   const onRemoveMealHandler = (mealIndex) => {
-    const updatedMeals = [...meals];
-    if (updatedMeals[mealIndex].amount > 0) {
-      updatedMeals[mealIndex].amount = updatedMeals[mealIndex].amount - 1;
-      dispatch(actionType.updateMeals(updatedMeals))
-    }
+    const selectedMeal = meals[mealIndex];
+    curOrderDispatch({
+      type: REMOVE,
+      name: selectedMeal.name,
+      price: selectedMeal.price,
+    });
+
+    
   };
 
   const onOpenModalHandler = () => {
@@ -45,12 +56,23 @@ const BurgerBuilder = () => {
     setOpen(false);
   };
 
+  const onOrderHandler = ()=>{
+    dispatch(userActionType.addToUserOrder(currentOrder))
+    curOrderDispatch({trpe:CLEAR})
+    if(user){
+
+      props.history.push('/checkout')
+    }else{
+      props.history.push('/orders')
+
+    }
+  }
+
+
   return (
     <div className="burger__main__app">
-    
-     <Burger/>
+      <Burger />
       <div className="burger__builder">
-      
         <AvailableItem
           onAddMealHandler={onAddMealHandler}
           onRemoveMealHandler={onRemoveMealHandler}
@@ -60,13 +82,16 @@ const BurgerBuilder = () => {
         {isMeals && (
           <div className="order__details">
             <OrderMenu
-             totalPrice={orderPrice}
-             meals={orderData} onOpenModalHandler={onOpenModalHandler} />
+              totalPrice={currentOrder.price}
+              meals={currentOrder.items}
+              onOpenModalHandler={onOpenModalHandler}
+            />
 
             <div className="order__dialog">
               <OrderDialog
+              onOrderHandler = {onOrderHandler}
                 open={open}
-                meals={orderData}
+                meals={currentOrder.items}
                 onCloseHandler={onCloseHandler}
               />
             </div>

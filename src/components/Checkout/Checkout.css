@@ -1,8 +1,10 @@
 .checkout{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    text-align: center;
 
 }
 
@@ -17,9 +19,7 @@
 
 }
 
-/* .MuiPaper-rounded{
-    margin: 20px;
-} */
+
 
 .checkout__item{
     display: flex;
@@ -43,4 +43,16 @@
 .order__data{
     margin: 2px 0;
     padding: 0;
+}
+
+.price{
+    padding: 5px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+
+}
+
+.price:hover{
+    border: 1px solid rgb(58, 152, 168);
+    color: rgb(58, 152, 168);
 }

@@ -1,7 +1,8 @@
 export const ADD__USERDATA = "ADD_USERDATA";
 export const USER_CART = "USER_CART";
 export const USER__ORDERS = "USER_ORDERS";
-export const CURRENT_ORDER = "CURRENT_ORDER";
+export const ADD_TO_CURRENT_ORDER = "CURRENT_ORDER";
+export const REMOVE_FROM_CURRENT_ORDER = 'REMOVE_FROM_CURRENT_ORDER'
 export const CLEAR_CURRENT_ORDER = "CLEAR_CURRENT_ORDER";
 
 export const userData = (user) => {
@@ -11,33 +12,11 @@ export const userData = (user) => {
   };
 };
 
-export const addToCurrentOrder = (item, price) => {
-  return {
-    type: CURRENT_ORDER,
-    itemData: {
-      item,
-      price,
-    },
-  };
-};
-
-export const clearCurrentOrder = () => {
-  return {
-    type: CLEAR_CURRENT_ORDER,
-  };
-};
-
-export const addToUserOrder = (orderItems, orderPrice) => {
-    
-    let data = orderItems.reduce((result, item, next)=>{
-      result[item.item] = item.count
-      return result
-    }, {})
-
-    data = {...data, price:orderPrice}
+export const addToUserOrder = (orderData) => {
+  
 
   return {
     type: USER__ORDERS,
-    data
+    orderData
   };
 };
